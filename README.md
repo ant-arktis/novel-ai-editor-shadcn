@@ -9,10 +9,17 @@ This project is a text editor built with [Next.js](https://nextjs.org/), [Novel]
 - 🎨 Clean, modern interface
 - 🌙 Dark/Light mode support
 - ⌨️ Command palette for quick actions
-- 🔄 Real-time markdown preview
 - ⚡ Fast and responsive
 
-## Installation
+## 🚀 Quick start
+
+## prequisites
+
+- Node.js
+- npm or yarn or pnpm
+- OpenAI API key (for AI features)
+
+### Installation
 
 1. Clone the repository:
 
@@ -42,7 +49,7 @@ This project is a text editor built with [Next.js](https://nextjs.org/), [Novel]
    yarn install
    ```
 
-3. Set up the following environment variables:
+3. Set up the following environment variables :
 
    - OPENAI_API_KEY – your OpenAI API key (you can get one [here](https://platform.openai.com/api-keys))
 
@@ -50,15 +57,15 @@ This project is a text editor built with [Next.js](https://nextjs.org/), [Novel]
 
 ## Quick Start Guide
 
-1. Start the development server:
+4. Start the development server:
 
    ```
    npm run dev
    ```
 
-2. Open `http://localhost:3000` in your browser.
+5. Open `http://localhost:3000` in your browser.
 
-3. You should see the rich text editor with an AI assistant option in the toolbar.
+6. You should see the rich text editor with an AI assistant option in the toolbar.
 
 ## Dependencies Overview
 
