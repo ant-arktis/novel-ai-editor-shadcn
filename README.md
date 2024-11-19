@@ -9,11 +9,15 @@ This project is a text editor built with [Next.js](https://nextjs.org/), [Novel]
 1. Clone the repository:
 
    ```
-   git clone https://github.com/alirezashalchian/my-tiptap-project.git
+   git clone https://github.com/alirezashalchian/novel-ai-editor.git
    ```
 
    ```
-   cd my-tiptap-project
+   cd novel-ai-editor
    ```
 
 2. Install dependencies:
+
+   ```
+   pnpm i
+   ```
