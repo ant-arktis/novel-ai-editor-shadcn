@@ -48,15 +48,17 @@ This project is a text editor built with [Next.js](https://nextjs.org/), [Novel]
 
 ## Dependencies Overview
 
-### UI Components and Styling
+### UI Components
 
-Shadcn components
+Shadcn components:
 
 - dialog
 - popover
 - scroll-area
 - separator
 - slot
+
+### Styling
 
 - @tailwindcss/typography
 - tailwind-merge
