@@ -42,7 +42,7 @@ This project is a text editor built with [Next.js](https://nextjs.org/), [Novel]
    yarn install
    ```
 
-   3. Set up the following environment variables:
+3. Set up the following environment variables:
 
    - OPENAI_API_KEY – your OpenAI API key (you can get one [here](https://platform.openai.com/api-keys))
 
