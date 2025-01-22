@@ -1,6 +1,6 @@
 "use client";
 
-import { Check, Menu as MenuIcon, Monitor, Moon, SunDim } from "lucide-react";
+import { IoCheckmark, IoMenu, IoDesktop, IoMoon, IoSunny } from "react-icons/io5";
 import { useTheme } from "next-themes";
 import { Button } from "./button";
 import { Popover, PopoverContent, PopoverTrigger } from "./popover";
@@ -23,15 +23,15 @@ import { Popover, PopoverContent, PopoverTrigger } from "./popover";
 const appearances = [
   {
     theme: "System",
-    icon: <Monitor style={{ width: '1rem', height: '1rem' }} />,
+    icon: <IoDesktop style={{ width: '1rem', height: '1rem' }} />,
   },
   {
-    theme: "Light",
-    icon: <SunDim style={{ width: '1rem', height: '1rem' }} />,
+    theme: "Light", 
+    icon: <IoSunny style={{ width: '1rem', height: '1rem' }} />,
   },
   {
     theme: "Dark",
-    icon: <Moon style={{ width: '1rem', height: '1rem' }} />,
+    icon: <IoMoon style={{ width: '1rem', height: '1rem' }} />,
   },
 ];
 
@@ -42,7 +42,7 @@ export default function Menu() {
     <Popover>
       <PopoverTrigger asChild>
         <Button variant="subtle" size="sm">
-          <MenuIcon style={{ width: '1rem', height: '1rem' }} />
+          <IoMenu style={{ width: '1rem', height: '1rem' }} />
         </Button>
       </PopoverTrigger>
       <PopoverContent style={{ width: '13rem', padding: '0.5rem' }} align="end">
@@ -82,7 +82,7 @@ export default function Menu() {
               <span>{theme}</span>
             </div>
             {currentTheme === theme.toLowerCase() && (
-              <Check style={{ width: '1rem', height: '1rem' }} />
+              <IoCheckmark style={{ width: '1rem', height: '1rem' }} />
             )}
           </Button>
         ))}
