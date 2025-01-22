@@ -15,6 +15,8 @@ import Magic from "../ui/icons/magic";
 import { ScrollArea } from "../ui/scroll-area";
 import { Check, TextQuote, TrashIcon, RefreshCcwDot, CheckCheck, ArrowDownWideNarrow, WrapText, Flame, Snowflake, Swords, Heart, Wind, Sparkles, ChevronLeft, FolderOpen } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { TbUser, TbMapPin, TbBox, TbStar } from "react-icons/tb";
+import { WorldBuildingDialog } from "./world-building-dialog";
 //TODO: I think it makes more sense to create a custom Tiptap extension for this functionality https://tiptap.dev/docs/editor/ai/introduction
 
 interface AISelectorProps {
@@ -35,9 +37,18 @@ type AICommandSubmenu = {
   }[];
 };
 
+// Add state for dialog control
+interface DialogState {
+  type: "character" | "location" | "item" | "experience";
+  title: string;
+  description: string;
+  text: string;
+}
+
 export function AISelector({ open, onOpenChange }: AISelectorProps) {
   const { editor } = useEditor();
   const [inputValue, setInputValue] = useState("");
+  const [activeDialog, setActiveDialog] = useState<DialogState | null>(null);
 
   const { completion, complete, isLoading } = useCompletion({
     // id: "novel",
@@ -140,6 +151,76 @@ export function AISelector({ open, onOpenChange }: AISelectorProps) {
             const slice = editor.state.selection.content();
             const text = editor.storage.markdown.serializer.serialize(slice.content);
             complete(text, { body: { option: "foreshadowing" } });
+          },
+        },
+      ],
+    },
+    {
+      title: "World Building",
+      description: "Add story elements",
+      items: [
+        {
+          title: "Add Character",
+          description: "Add character details",
+          icon: <TbUser size={18} />,
+          option: "add_character",
+          command: ({ editor }) => {
+            const slice = editor.state.selection.content();
+            const text = editor.storage.markdown.serializer.serialize(slice.content);
+            setActiveDialog({
+              type: "character",
+              title: "Add Character Details",
+              description: "Describe the character to add to the story...",
+              text
+            });
+          },
+        },
+        {
+          title: "Add Location",
+          description: "Add location details",
+          icon: <TbMapPin size={18} />,
+          option: "add_location",
+          command: ({ editor }) => {
+            const slice = editor.state.selection.content();
+            const text = editor.storage.markdown.serializer.serialize(slice.content);
+            setActiveDialog({
+              type: "location",
+              title: "Add Location Details",
+              description: "Describe the location to add to the story...",
+              text
+            });
+          },
+        },
+        {
+          title: "Add Item",
+          description: "Add item details",
+          icon: <TbBox size={18} />,
+          option: "add_item",
+          command: ({ editor }) => {
+            const slice = editor.state.selection.content();
+            const text = editor.storage.markdown.serializer.serialize(slice.content);
+            setActiveDialog({
+              type: "item",
+              title: "Add Item Details",
+              description: "Describe the item to add to the story...",
+              text
+            });
+          },
+        },
+        {
+          title: "Add Experience",
+          description: "Add sensory/emotional details",
+          icon: <TbStar size={18} />,
+          option: "add_experience",
+          command: ({ editor }) => {
+            const slice = editor.state.selection.content();
+            const text = editor.storage.markdown.serializer.serialize(slice.content);
+            setActiveDialog({
+              type: "experience",
+              title: "Add Experience Details",
+              description: "Describe the sensory/emotional experience to add...",
+              text
+            });
           },
         },
       ],
@@ -266,6 +347,18 @@ export function AISelector({ open, onOpenChange }: AISelectorProps) {
 
   // Add a check for actual completion content
   const hasValidCompletion = completion && completion.trim().length > 0;
+
+  // Add dialog handler
+  const handleDialogSubmit = (details: string) => {
+    if (!activeDialog) return;
+    
+    complete(activeDialog.text, {
+      body: { 
+        option: `add_${activeDialog.type}`,
+        command: details
+      }
+    });
+  };
 
   return (
     <div className="w-[350px]">
@@ -450,6 +543,15 @@ export function AISelector({ open, onOpenChange }: AISelectorProps) {
           </div>
         </>
       )}
+
+      {/* Add dialog */}
+      <WorldBuildingDialog
+        open={!!activeDialog}
+        onOpenChange={(open) => !open && setActiveDialog(null)}
+        title={activeDialog?.title || ""}
+        description={activeDialog?.description || ""}
+        onSubmit={handleDialogSubmit}
+      />
     </div>
   );
 }

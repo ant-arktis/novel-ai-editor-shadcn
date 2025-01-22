@@ -232,6 +232,66 @@ export async function POST(req: Request): Promise<Response> {
         content: `The existing text is: ${prompt}`,
       },
     ])
+    .with("add_character", () => [
+      {
+        role: "system",
+        content:
+          "You are an AI writing assistant that adds character details to a story. " +
+          "Incorporate the provided character details naturally into the text. " +
+          "Keep the response similar in length to the original text, with a maximum of one paragraph extra. " +
+          "Return only the modified text without any explanations or comments. " +
+          "Use Markdown formatting when appropriate.",
+      },
+      {
+        role: "user",
+        content: `Original text: ${prompt}\n\nCharacter details to incorporate: ${command}`,
+      },
+    ])
+    .with("add_location", () => [
+      {
+        role: "system",
+        content:
+          "You are an AI writing assistant that adds location descriptions to a story. " +
+          "Incorporate the provided location details naturally into the text. " +
+          "Keep the response similar in length to the original text, with a maximum of one paragraph extra. " +
+          "Return only the modified text without any explanations or comments. " +
+          "Use Markdown formatting when appropriate.",
+      },
+      {
+        role: "user",
+        content: `Original text: ${prompt}\n\nLocation details to incorporate: ${command}`,
+      },
+    ])
+    .with("add_item", () => [
+      {
+        role: "system",
+        content:
+          "You are an AI writing assistant that adds item descriptions to a story. " +
+          "Incorporate the provided item details naturally into the text. " +
+          "Keep the response similar in length to the original text, with a maximum of one paragraph extra. " +
+          "Return only the modified text without any explanations or comments. " +
+          "Use Markdown formatting when appropriate.",
+      },
+      {
+        role: "user",
+        content: `Original text: ${prompt}\n\nItem details to incorporate: ${command}`,
+      },
+    ])
+    .with("add_experience", () => [
+      {
+        role: "system",
+        content:
+          "You are an AI writing assistant that adds experiential details to a story. " +
+          "Incorporate the provided sensory/emotional experience naturally into the text. " +
+          "Keep the response similar in length to the original text, with a maximum of one paragraph extra. " +
+          "Return only the modified text without any explanations or comments. " +
+          "Use Markdown formatting when appropriate.",
+      },
+      {
+        role: "user",
+        content: `Original text: ${prompt}\n\nExperience details to incorporate: ${command}`,
+      },
+    ])
     .run() as ChatCompletionMessageParam[];
 
   const response = await openai.chat.completions.create({
