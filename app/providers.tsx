@@ -8,8 +8,9 @@ import {
 } from "react";
 import { ThemeProvider, useTheme } from "next-themes";
 import { Toaster } from "sonner";
-import { Analytics } from "@vercel/analytics/react";
+//import { Analytics } from "@vercel/analytics/react";
 import useLocalStorage from "@/hooks/use-local-storage";
+  import { createTheme, MantineProvider } from "@mantine/core";
 
 export const AppContext = createContext<{
   font: string;
@@ -17,6 +18,10 @@ export const AppContext = createContext<{
 }>({
   font: "Default",
   setFont: () => {},
+});
+
+const theme = createTheme({
+  fontFamily: "Poppins, sans-serif",
 });
 
 const ToasterProvider = () => {
@@ -43,8 +48,10 @@ export default function Providers({ children }: { children: ReactNode }) {
         }}
       >
         <ToasterProvider />
-        {children}
-        <Analytics />
+        <MantineProvider theme={theme}>
+          {children}
+        </MantineProvider>
+        {/*<Analytics />*/}
       </AppContext.Provider>
     </ThemeProvider>
   );
